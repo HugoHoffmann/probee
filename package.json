@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@adonisjs/cli": "^4.0.12",
-    "global": "^4.4.0"
+    "global": "^4.4.0",
+    "readme-md-generator": "^0.6.4"
   }
 }
