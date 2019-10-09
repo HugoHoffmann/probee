@@ -5,6 +5,9 @@
 ## Install
 
 ```sh
+cd server
+```
+```sh
 npm install
 ```
 
