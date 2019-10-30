@@ -34,6 +34,23 @@ class TeamController {
 
     return team;
   }
+
+   /**
+   * Display a single team.
+   * GET teams/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async show ({ params, auth }) {
+    const team = await auth.user.teams().where('teams.id', params.id).first()
+
+    return team
+  }
+
+  
 }
 
 module.exports = TeamController;
