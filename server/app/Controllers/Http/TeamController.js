@@ -35,7 +35,7 @@ class TeamController {
     return team;
   }
 
-   /**
+  /**
    * Display a single team.
    * GET teams/:id
    *
@@ -44,13 +44,36 @@ class TeamController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, auth }) {
-    const team = await auth.user.teams().where('teams.id', params.id).first()
+  async show({ params, auth }) {
+    const team = await auth.user
+      .teams()
+      .where("teams.id", params.id)
+      .first();
 
-    return team
+    return team;
   }
 
-  
+  /**
+   * Update team details.
+   * PUT or PATCH teams/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async update({ params, request, auth }) {
+    const team = await auth.user
+      .teams()
+      .where("teams.id", params.id)
+      .first();
+    const data = request.only(["name"]);
+
+    team.merge(data);
+
+    await team.save();
+
+    return team;
+  }
 }
 
 module.exports = TeamController;
