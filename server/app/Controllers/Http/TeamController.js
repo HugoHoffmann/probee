@@ -74,6 +74,22 @@ class TeamController {
 
     return team;
   }
+
+  /**
+   * Delete a team with id.
+   * DELETE teams/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async destroy({ params, auth }) {
+    const team = await auth.user
+      .teams()
+      .where("teams.id", params.id)
+      .first();
+    await team.delete();
+  }
 }
 
 module.exports = TeamController;
