@@ -10,6 +10,14 @@ class UserController {
 
         return token
     }
+
+    async index({ request }){
+        const users = await User.query()
+            .where('team_id', request.team.id)
+            .fetch()
+        
+        return users
+    }
 }
 
 module.exports = UserController
