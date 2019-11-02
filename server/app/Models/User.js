@@ -21,9 +21,9 @@ class User extends Model {
     })
   }
 
-  teamJoins(){
-    return this.hasMany('App/Models/UserTeam')
-  }
+  // teamJoins(){
+  //   return this.hasMany('App/Models/UserTeam')
+  // }
   
   tokens () {
     return this.hasMany('App/Models/Token')
