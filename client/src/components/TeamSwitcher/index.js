@@ -8,7 +8,7 @@ import TeamsActions from '../../store/ducks/teams';
 import AuthActions from '../../store/ducks/auth';
 
 import { Container, TeamList, Team, NewTeam, Logout } from './styles';
-import Modal from '../components/Modal';
+import Modal from '../Modal';
 import Button from '../../styles/components/Button';
 
 class TeamSwitcher extends Component {

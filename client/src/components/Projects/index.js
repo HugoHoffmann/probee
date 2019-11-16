@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux';
 import ProjectsAction from '../../store/ducks/projects';
 import MembersAction from '../../store/ducks/members';
 
-import Members from '../components/Members';
+import Members from '../Members';
 import Button from '../../styles/components/Button';
-import Modal from '../components/Modal';
+import Modal from '../Modal';
 import { Container, Project } from './styles';
 
 class Projects extends Component {
