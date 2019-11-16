@@ -3,14 +3,13 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import api from '~/services/api';
+import api from '../../services/api';
 
-import MembersAction from '~/store/ducks/members';
+import MembersAction from '../../store/ducks/members';
 
 
-import Can from '~/components/Can';
-import Modal from '~/components/Modal';
-import Button from '~/styles/components/Button';
+import Modal from '../components/Modal';
+import Button from '../../styles/components/Button';
 import { MembersList, Invite } from './styles';
 
 class Members extends Component {
@@ -70,14 +69,12 @@ class Members extends Component {
         return (
             <Modal size="big">
                 <h1>Novo Membro</h1>
-                <Can checkPermission="invites_create">
-                    <Invite>
-                        <input name="invite" placeholder="Convidar para o time" value={invite} onChange={this.handleInputChange} />
-                        <Button onClick={this.handleInvite}>
-                            Enviar
-                    </Button>
-                    </Invite>
-                </Can>
+                <Invite>
+                    <input name="invite" placeholder="Convidar para o time" value={invite} onChange={this.handleInputChange} />
+                    <Button onClick={this.handleInvite}>
+                        Enviar
+                </Button>
+                </Invite>
                 <form>
                     <MembersList>
                         {members.data.map(member => (

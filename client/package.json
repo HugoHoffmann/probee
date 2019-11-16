@@ -45,6 +45,6 @@
   "devDependencies": {
     "babel-plugin-root-import": "^6.4.1",
     "babel-root-import": "^4.1.8",
-    "customize-cra": "^0.8.0"
+    "customize-cra": "^0.9.1"
   }
 }

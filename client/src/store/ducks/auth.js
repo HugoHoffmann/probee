@@ -14,8 +14,8 @@ export const AuthTypes = Types;
 export default Creators;
 
 const INITIAL_STATE = Immutable({
-    signedIn: !!localStorage.getItem('@Management:token'),
-    token: localStorage.getItem('@Management:token') || null,
+    signedIn: !!localStorage.getItem('@probee:token'),
+    token: localStorage.getItem('@probee:token') || null,
     roles: [],
     permissions: [],
 });

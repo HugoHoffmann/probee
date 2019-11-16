@@ -2,7 +2,7 @@ import {call, put} from 'redux-saga/effects';
 import { actions as toastrActions } from 'react-redux-toastr';
 
 import MembersActions from '../ducks/members';
-import api from '~/services/api';
+import api from '../../services/api';
 
 export function* getMembers(){
     const response = yield call(api.get,'members');

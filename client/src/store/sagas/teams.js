@@ -2,7 +2,7 @@ import {call, put} from 'redux-saga/effects';
 import { actions as toastrActions } from 'react-redux-toastr';
 
 import TeamsActions from '../ducks/teams';
-import api from '~/services/api';
+import api from '../../services/api';
 
 export function* getTeams(){
     const response = yield call(api.get,'teams');

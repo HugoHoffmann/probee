@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import AuthActions from '~/store/ducks/auth';
+import AuthActions from '../../../store/ducks/auth';
 
-import Button from '~/styles/components/Button'
+import Button from '../../../styles/components/Button'
 import { Container, SignForm } from '../styles';
 
 class SignUp extends Component{

@@ -3,15 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import ProjectsAction from '~/store/ducks/projects';
-import MembersAction from '~/store/ducks/members';
+import ProjectsAction from '../../store/ducks/projects';
+import MembersAction from '../../store/ducks/members';
 
-import Members from '~/components/Members';
-import Button from '~/styles/components/Button';
-import Modal from '~/components/Modal';
+import Members from '../components/Members';
+import Button from '../../styles/components/Button';
+import Modal from '../components/Modal';
 import { Container, Project } from './styles';
-
-import Can from '~/components/Can';
 
 class Projects extends Component {
     static propTypes = {
@@ -72,11 +70,9 @@ class Projects extends Component {
                 <header>
                     <h1>{activeTeam.name}</h1>
                     <div>
-                        <Can checkPermission="projects_create">
-                            <Button onClick={openProjectModal}>
-                                + Novo
-                            </Button>
-                        </Can>
+                        <Button onClick={openProjectModal}>
+                            + Novo
+                        </Button>
                         <Button onClick={openMembersModal}>
                             Membros
                         </Button>

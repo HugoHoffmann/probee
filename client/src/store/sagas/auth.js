@@ -3,12 +3,12 @@ import { actions as toastrActions } from 'react-redux-toastr';
 import {push} from 'connected-react-router';
 
 import AuthActions from '../ducks/auth';
-import api from '~/services/api';
+import api from '../../services/api';
 
 export function* signIn({ email, password }){
     try {
         const response = yield call(api.post,'sessions', {email, password} );
-        localStorage.setItem('@Management:token', response.data.token);
+        localStorage.setItem('@probee:token', response.data.token);
 
         yield put(AuthActions.signInSuccess(response.data.token))
         yield put(push('/'));
@@ -25,7 +25,7 @@ export function* signIn({ email, password }){
 export function* signUp({ name, email, password }){
     try {
         const response = yield call(api.post,'users', {name, email, password} );
-        localStorage.setItem('@Management:token', response.data.token);
+        localStorage.setItem('@probee:token', response.data.token);
 
         yield put(AuthActions.signInSuccess(response.data.token))
         yield put(push('/'));
@@ -40,8 +40,8 @@ export function* signUp({ name, email, password }){
 }
 
 export function* signOut(){
-    localStorage.removeItem('@Management:token');
-    localStorage.removeItem('@Management:team');
+    localStorage.removeItem('@probee:token');
+    localStorage.removeItem('@probee:team');
 
     yield put(push('/signin'));
 }

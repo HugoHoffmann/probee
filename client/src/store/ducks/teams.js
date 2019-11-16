@@ -19,7 +19,7 @@ export default Creators;
 const INITIAL_STATE = Immutable({
     data: [],
     teamModalOpen: false,
-    active: JSON.parse(localStorage.getItem('@Management:team')) || null,
+    active: JSON.parse(localStorage.getItem('@probee:team')) || null,
 });
 
 export const getSuccess = (state, {data}) => {
@@ -27,7 +27,7 @@ export const getSuccess = (state, {data}) => {
 }
 
 export const selectTeam = (state, {team}) => {
-    localStorage.setItem('@Management:team', JSON.stringify(team));
+    localStorage.setItem('@probee:team', JSON.stringify(team));
     return state.merge({ active: team });
 }
 

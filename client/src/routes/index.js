@@ -7,9 +7,9 @@ import history from './history';
 import Private from './private';
 import Guest from './guest';
 
-import Main from '~/pages/Main';
-import SignIn from '~/pages/Auth/SignIn';
-import SignUp from '~/pages/Auth/SignUp';
+import Main from '../pages/Main';
+import SignIn from '../pages/Auth/SignIn';
+import SignUp from '../pages/Auth/SignUp';
 
 const Routes = () => (
     <ConnectedRouter history={history}>

@@ -5,6 +5,6 @@ module.exports = override(
         'babel-plugin-root-import',
         {
             rootPathSuffix: 'src', 
-        }
+        },
     ])
 );
