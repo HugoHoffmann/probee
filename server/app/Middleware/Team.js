@@ -9,7 +9,7 @@ class Team {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request }, next) {
+  async handle ({ request, response, auth }, next) {
     const slug = request.header('TEAM')
 
     let team = null
