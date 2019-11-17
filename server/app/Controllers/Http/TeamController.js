@@ -1,4 +1,6 @@
-"use strict";
+'use strict'
+
+// const Role = use('Acl/Role')
 
 class TeamController {
   /**
@@ -10,10 +12,10 @@ class TeamController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ auth }) {
-    const teams = await auth.user.teams().fetch();
+  async index ({ auth }) {
+    const teams = await auth.user.teams().fetch()
 
-    return teams;
+    return teams
   }
 
   /**
@@ -24,15 +26,21 @@ class TeamController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, auth }) {
-    const data = request.only(["name"]);
+  async store ({ request, auth }) {
+    const data = request.only(['name'])
 
     const team = await auth.user.teams().create({
       ...data,
       user_id: auth.user.id
-    });
+    })
 
-    return team;
+    // const teamJoin = await auth.user.teamJoins().where('team_id', team.id).first()
+
+    // const admin = await Role.findBy('slug', 'administrator')
+
+    // await teamJoin.roles().attach([admin.id]);
+
+    return team
   }
 
   /**
@@ -44,13 +52,10 @@ class TeamController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, auth }) {
-    const team = await auth.user
-      .teams()
-      .where("teams.id", params.id)
-      .first();
+  async show ({ params, auth }) {
+    const team = await auth.user.teams().where('teams.id', params.id).first()
 
-    return team;
+    return team
   }
 
   /**
@@ -61,18 +66,15 @@ class TeamController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, auth }) {
-    const team = await auth.user
-      .teams()
-      .where("teams.id", params.id)
-      .first();
-    const data = request.only(["name"]);
+  async update ({ params, request, auth }) {
+    const team = await auth.user.teams().where('teams.id', params.id).first()
+    const data = request.only(['name'])
 
-    team.merge(data);
+    team.merge(data)
 
-    await team.save();
+    await team.save()
 
-    return team;
+    return team
   }
 
   /**
@@ -83,13 +85,10 @@ class TeamController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, auth }) {
-    const team = await auth.user
-      .teams()
-      .where("teams.id", params.id)
-      .first();
-    await team.delete();
+  async destroy ({ params, auth }) {
+    const team = await auth.user.teams().where('teams.id', params.id).first()
+    await team.delete()
   }
 }
 
-module.exports = TeamController;
+module.exports = TeamController
