@@ -45,19 +45,3 @@ export function* signOut(){
 
     yield put(push('/signin'));
 }
-
-export function* getPermissions(){
-
-    const team = yield select(state => state.teams.active);
-    const signedIn = yield select(state => state.auth.signedIn);
-    
-    if(!signedIn || !team ){
-        return;
-    }
-
-    const response = yield call(api.get, 'permissions');
-
-    const {roles, permissions} = response.data;
-
-    yield put(AuthActions.getPermissionsSuccess(roles, permissions));
-}

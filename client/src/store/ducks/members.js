@@ -6,7 +6,7 @@ const { Types, Creators } = createActions({
     closeMembersModal: null,
     getMembersRequest: null,
     getMembersSuccess: ['data'],
-    updateMemberRequest: ['id', 'roles'],
+    updateMemberRequest: ['id'],
     inviteMemberRequest: ['email'],
 });
 
@@ -30,9 +30,9 @@ export const getSuccess = (state, { data }) =>{
     return state.merge({ data });
 }
 
-export const updateMember = (state, {id, roles}) => {
+export const updateMember = (state, {id}) => {
     return state.merge({
-        data: state.data.map(member => (member.id === id) ? {...member, roles} : member ),
+        data: state.data.map(member => (member.id === id) ? {...member} : member ),
     })
 }
 

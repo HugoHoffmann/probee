@@ -24,19 +24,9 @@ class Members extends Component {
           user: PropTypes.shape({
             name: PropTypes.string
           }),
-          roles: PropTypes.arrayOf(
-            PropTypes.shape({
-              id: PropTypes.number,
-              name: PropTypes.string
-            })
-          )
         })
       )
     }).isRequired
-  };
-
-  state = {
-    roles: ""
   };
 
   async componentDidMount() {
@@ -44,19 +34,10 @@ class Members extends Component {
 
     getMembersRequest();
 
-    const response = await api.get("roles");
-
-    this.setState({ roles: response.data });
   }
 
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleRolesChange = (id, roles) => {
-    const { updateMemberRequest } = this.props;
-
-    updateMemberRequest(id, roles);
   };
 
   handleInvite = () => {
@@ -67,7 +48,7 @@ class Members extends Component {
   };
 
   render() {
-    const { roles, invite } = this.state;
+    const { invite } = this.state;
     const { closeMembersModal, members } = this.props;
     return (
       <Modal size="big">
@@ -87,7 +68,7 @@ class Members extends Component {
               <li key={member.id}>
                 <strong>{member.user.name}</strong>
 
-                <Select
+                {/* <Select
                   isMulti
                   // isDisabled={!can}
                   options={roles}
@@ -95,7 +76,7 @@ class Members extends Component {
                   getOptionLabel={role => role.name}
                   getOptionValue={role => role.id}
                   onChange={value => this.handleRolesChange(member.id, value)}
-                />
+                /> */}
               </li>
             ))}
           </MembersList>

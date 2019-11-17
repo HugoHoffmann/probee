@@ -11,9 +11,9 @@ export function* getMembers(){
 }
 
 
-export function* updateMember({ id, roles }){
+export function* updateMember({ id }){
     try {
-        yield call(api.put, `members/${id}`, {roles: roles.map(role => role.id)});
+        yield call(api.put, `members/${id}`);
 
         yield put(toastrActions.add({
             type: 'success',
