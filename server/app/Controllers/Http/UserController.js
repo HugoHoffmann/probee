@@ -1,22 +1,29 @@
 'use strict'
 
 const User = use('App/Models/User')
+const Invite = use('App/Models/Invite')
+
 class UserController {
-    async store({ request, auth }){
+    async store({ request, response, auth }){
         const data = request.only([ 'name', 'email', 'password' ])
+
+        const teamsQuery = Invite.query().where('email', data.email)
+
+        const teams = await teamsQuery.pluck('team_id')
+
+        if(teams.length === 0){
+            return response.status(401).send({ message: "You're not  invited to any team." })
+        }
+
         const user = await User.create(data)
 
-        // const token = await auth.attempt(data.email, data.password)
+        await user.teams().attach(teams)
 
-        return user
-    }
+        await teamsQuery.delete()
 
-    async index({ request }){
-        const users = await User.query()
-            // .where('team_id', request.team.id)
-            .fetch()
-        
-        return users
+        const token = await auth.attempt(data.email, data.password)
+
+        return token
     }
 }
 
