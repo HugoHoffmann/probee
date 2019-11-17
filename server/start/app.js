@@ -13,10 +13,15 @@
 const providers = [
   '@adonisjs/framework/providers/AppProvider',
   '@adonisjs/auth/providers/AuthProvider',
-  '@adonisjs/shield/providers/ShieldProvider',
   '@adonisjs/bodyparser/providers/BodyParserProvider',
   '@adonisjs/cors/providers/CorsProvider',
-  '@adonisjs/lucid/providers/LucidProvider'
+  '@adonisjs/lucid/providers/LucidProvider',
+  '@adonisjs/lucid-slugify/providers/SlugifyProvider',
+  'adonis-kue/providers/KueProvider',
+  '@adonisjs/redis/providers/RedisProvider',
+  '@adonisjs/mail/providers/MailProvider',
+  '@adonisjs/framework/providers/ViewProvider',
+  '@adonisjs/validator/providers/ValidatorProvider',
 ]
 
 /*
@@ -29,7 +34,8 @@ const providers = [
 |
 */
 const aceProviders = [
-  '@adonisjs/lucid/providers/MigrationsProvider'
+  '@adonisjs/lucid/providers/MigrationsProvider',
+  'adonis-kue/providers/CommandsProvider',
 ]
 
 /*
@@ -44,7 +50,8 @@ const aceProviders = [
 |   { Route: 'Adonis/Src/Route' }
 |
 */
-const aliases = {}
+const aliases = {
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +63,8 @@ const aliases = {}
 */
 const commands = []
 
-module.exports = { providers, aceProviders, aliases, commands }
+const jobs = [
+  'App/Jobs/InvitationEmail'
+]
+
+module.exports = { providers, aceProviders, aliases, commands, jobs }
