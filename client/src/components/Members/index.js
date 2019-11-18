@@ -29,6 +29,10 @@ class Members extends Component {
     }).isRequired
   };
 
+   state = {
+        invite: '',
+    }
+
   async componentDidMount() {
     const { getMembersRequest } = this.props;
 
@@ -80,7 +84,7 @@ class Members extends Component {
               </li>
             ))}
           </MembersList>
-          <Button onClick={closeMembersModal} filled={false} color="gray">
+          <Button onClick={closeMembersModal} filled={false} color="danger">
             Cancelar
           </Button>
         </form>
