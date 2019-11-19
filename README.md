@@ -17,10 +17,12 @@ cd client && yarn install
 ```sh
 cd server
 
-# setup `.env` file based on `.env.example`
+# setup `.env` file based on `.env.example`, you need to create an account on smtp server provider, like mailtrap.io and fill the fields in `.env` about it.
+# If you want, there is a `docker-compose.yaml` file in root folder, running it a postgres's container and redis's container will be started.
 
 adonis migration:run
 adonis seed
+adonio kue:listen
 adonis serve --dev
 ```
 
