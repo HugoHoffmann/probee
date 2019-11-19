@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - TZ=GMT
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    networks: 
+      - app-network
+    ports:
+      - 5432:5432
+  redis:
+    container_name: redis
+    image: redis
+    networks:
+      - app-network
+    ports:
+      - 6378:6378
+
+volumes:
+  postgresql-data:
+
+networks: 
+  app-network:
+    driver: bridge
