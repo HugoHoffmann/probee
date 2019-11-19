@@ -20,7 +20,7 @@ services:
     networks:
       - app-network
     ports:
-      - 6378:6378
+      - 6379:6379
 
 volumes:
   postgresql-data:
