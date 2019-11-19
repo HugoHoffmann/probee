@@ -15,7 +15,13 @@ cd client && yarn install
 ## Start Server
 
 ```sh
-cd server && adonis serve --dev
+cd server
+
+# setup `.env` file based on `.env.example`
+
+adonis migration:run
+adonis seed
+adonis serve --dev
 ```
 
 ## Start Client
