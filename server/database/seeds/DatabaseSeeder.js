@@ -9,13 +9,13 @@ const User = use('App/Models/User')
 class DatabaseSeeder {
   async run () {
     const user = await User.create({
-      name: 'Hugo Hoffmann',
-      email: 'hugohoffmann04@gmail.com',
+      name: 'Administrador',
+      email: 'admin@probee.com',
       password: '123456'
     })
 
     const team = await user.teams().create({
-      name: 'Htech',
+      name: 'Probee',
       user_id: user.id,
     })
 
