@@ -20,10 +20,13 @@ Route.post("sessions", "SessionController.store").validator("Session");
 Route.post("users", "UserController.store").validator("User");
 
 Route.group(() => {
+
+  Route.delete("users/:id", "UserController.destroy");
+  Route.put("users/:id", "UserController.update");
+
   Route.resource("teams", "TeamController")
     .apiOnly()
     .validator(new Map([[["teams.store", "teams.update"], ["Team"]]]))
-    // .middleware(new Map([[["teams.store", "teams.update"]]]));
 }).middleware("auth");
 
 Route.group(() => {
@@ -31,10 +34,10 @@ Route.group(() => {
 
   Route.resource("projects", "ProjectController")
     .apiOnly()
-    .validator(new Map([[["projects.store", "projects.update"], ["Project"]]]));
+    .validator(new Map([[["projects.store", "projects.update", "projects.destroy"], ["Project"]]]));
 
   Route.get("members", "MemberController.index");
   Route.put("members/:id", "MemberController.update");
+  Route.delete("members/:id", "MemberController.destroy");
 
-  Route.get("permissions", "PermissionController.show");
 }).middleware(["auth", "team"]);
