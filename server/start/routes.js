@@ -21,12 +21,11 @@ Route.post("users", "UserController.store").validator("User");
 
 Route.group(() => {
 
-  Route.delete("users/:id", "UserController.destroy");
-  Route.put("users/:id", "UserController.update");
+  Route.delete("users/:id", "UserController.destroy")
+  Route.put("users/:id", "UserController.update")
 
-  Route.resource("teams", "TeamController")
-    .apiOnly()
-    .validator(new Map([[["teams.store", "teams.update"], ["Team"]]]))
+  Route.resource("teams", "TeamController").apiOnly()
+
 }).middleware("auth");
 
 Route.group(() => {
