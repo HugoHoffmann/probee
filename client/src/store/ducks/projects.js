@@ -10,7 +10,9 @@ const { Types, Creators } = createActions({
     createProjectRequest: ['title'],
     createProjectSuccess: ['project'],
     deleteProjectRequest: ['id'],
-    deleteProjectSuccess: ['id'],
+    deleteProjectSuccess: ['projects'],
+    editProjectRequest: ['id', 'name'],
+    editProjectSuccess: ['id', 'name'],
 });
 
 
@@ -33,9 +35,8 @@ export const createSuccess = (state, { project }) => {
     return state.merge({ data: [...state.data, project] });
 }
 
-export const deleteSuccess = (state, { project }) => {
-    return state.merge({ data: [...state.data, project] });
-}
+export const deleteSuccess = (state, {projects}) => state.merge({ data: projects });
+
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_PROJECTS_SUCCESS]: success,
@@ -43,4 +44,5 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.OPEN_PROJECT_MODAL]: openModal,
     [Types.CREATE_PROJECT_SUCCESS]: createSuccess,
     [Types.DELETE_PROJECT_SUCCESS]: deleteSuccess,
+    [Types.EDIT_PROJECT_SUCCESS]: createSuccess,
 });

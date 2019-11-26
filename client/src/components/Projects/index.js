@@ -70,6 +70,14 @@ class Projects extends Component {
         createProjectRequest(newProject);
     }
 
+    handleDeleteProject = (id) => {
+
+        const { deleteProjectRequest } = this.props;
+
+        deleteProjectRequest(id);
+
+    }
+
     handleDeleteTeam = (id) => {
 
         const { deleteTeamRequest, teams } = this.props;
@@ -81,7 +89,7 @@ class Projects extends Component {
         }else{
 
             toastr.error('Ops', 'Não é possível apagar o último time');
-            
+
         }
 
     }
@@ -120,8 +128,8 @@ class Projects extends Component {
                     <Project key={project.id}>
                         <p>{project.title}</p>
                         <div>
-                            {/* <MdModeEdit onClick={editProjectModal} size={22} color="#fff" />
-                            <MdDelete onClick={deleteProject} size={22} color="#fff" /> */}
+                            {/* <MdModeEdit onClick={editProjectModal} size={22} color="#fff" /> */}
+                            <MdDelete onClick={ () => this.handleDeleteProject(project.id) } size={22} color="#fff" />
                         </div>
                     </Project>
                 ))}

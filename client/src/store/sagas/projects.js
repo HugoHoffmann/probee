@@ -28,7 +28,31 @@ export function* createProject({ title }){
 
 export function* deleteProject({ id }){
     try {
-        const response = yield call(api.delete, 'projects', {id});
+
+        yield call(api.delete, `projects/${id}`);
+
+        const response = yield call(api.get,'projects');
+
+        yield put(ProjectsActions.deleteProjectSuccess(response.data));
+
+        yield put(toastrActions.add({
+            type: 'success',
+            title: 'Sucesso!',
+            message: 'Projeto deletado.'
+        }) )
+    } catch (error) {
+        yield put(toastrActions.add({
+            type: 'error',
+            title: 'Erro na operação',
+            message: 'contate o suporte'
+        }) )
+    }
+
+}
+
+export function* editProject({ name, id }){
+    try {
+        const response = yield call(api.delete, `projects/${id}`, {name});
 
         yield put(ProjectsActions.deleteProjectSuccess(response.data));
 
