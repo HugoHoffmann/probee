@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { MdModeEdit, MdDelete } from 'react-icons/md';
 import ProjectsAction from '../../store/ducks/projects';
 import MembersAction from '../../store/ducks/members';
 
@@ -15,9 +16,11 @@ class Projects extends Component {
     static propTypes = {
         getProjectsRequest: PropTypes.func.isRequired,
         openProjectModal: PropTypes.func.isRequired,
+        editTeamModal: PropTypes.func.isRequired,
         openMembersModal: PropTypes.func.isRequired,
         closeProjectModal: PropTypes.func.isRequired,        
         createProjectRequest: PropTypes.func.isRequired,        
+        deleteTeamRequest: PropTypes.func.isRequired,        
         activeTeam: PropTypes.shape({
             name: PropTypes.string,
         }),
@@ -30,6 +33,9 @@ class Projects extends Component {
         }).isRequired,
         members: PropTypes.shape({
             membersModalOpen: PropTypes.bool,
+        }).isRequired,
+        teams: PropTypes.shape({
+            teamsModalOpen: PropTypes.bool,
         }).isRequired,
     }
 
@@ -61,7 +67,7 @@ class Projects extends Component {
     }
 
     render() {
-        const { activeTeam, projects, closeProjectModal, openProjectModal, openMembersModal, members } = this.props;
+        const { activeTeam, projects, teams, closeProjectModal, editProjectModal, deleteProject, openProjectModal, editTeamModal, deleteTeam, openMembersModal, members } = this.props;
         const { newProject } = this.state;
 
         if (!activeTeam) return null;
@@ -69,6 +75,10 @@ class Projects extends Component {
             <Container>
                 <header>
                     <h1>{activeTeam.name}</h1>
+                    <div>
+                        <MdModeEdit onClick={editTeamModal} size={22} color="#fff" />
+                        <MdDelete onClick={deleteTeam} size={22} color="#fff" />
+                    </div>
                     <div>
                         <Button onClick={openProjectModal}>
                             + Novo
@@ -81,6 +91,10 @@ class Projects extends Component {
                 {projects.data.map(project => (
                     <Project key={project.id}>
                         <p>{project.title}</p>
+                        <div>
+                            <MdModeEdit onClick={editProjectModal} size={22} color="#fff" />
+                            <MdDelete onClick={deleteProject} size={22} color="#fff" />
+                        </div>
                     </Project>
                 ))}
                 { projects.projectModalOpen && (
@@ -99,6 +113,22 @@ class Projects extends Component {
                         </form>
                     </Modal>
                 )}
+                {/* { teams.ModalOpen && (
+                    <Modal>
+                        <h1>Criar projeto</h1>
+                        <form>
+                            <span>NOME</span>
+                            <input name="newProject" onChange={this.handleInputChange} value={newProject}/>
+                            <Button onClick={ this.handleCreateProject }size="big" type="submit" >
+                                Salvar
+                            </Button>
+
+                            <Button onClick={closeProjectModal} size="small" color="gray" type="submit" >
+                                Cancelar
+                            </Button>
+                        </form>
+                    </Modal>
+                )} */}
                 { members.membersModalOpen && <Members/> }
             </Container>)
     }

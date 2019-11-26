@@ -14,8 +14,14 @@ export const Container = styled.div`
             font-size: 20px;
         }
         div{
+
             button{
                 margin-left: 10px;
+            }
+
+            icon{
+                margin-left: 20px;
+                cursor: pointer;
             }
         }
     }
