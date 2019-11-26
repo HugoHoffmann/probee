@@ -25,3 +25,52 @@ export function* createTeam({ name }){
     }
 
 }
+
+export function* updateTeam({ name,id }){
+    try {
+
+        yield call(api.update, 'teams', {name, id});
+
+        const response = yield call(api.get,'teams');
+
+        yield put(TeamsActions.updateTeamSuccess(response.data));
+        yield put(TeamsActions.closeTeamModal());
+
+        yield put(toastrActions.add({
+            type: 'success',
+            title: 'Sucesso!',
+            message: 'Time atualizado.'
+        }) )
+    } catch (error) {
+        yield put(toastrActions.add({
+            type: 'error',
+            title: 'Erro na operação',
+            message: 'contate o suporte'
+        }) )
+    }
+
+}
+
+export function* deleteTeam({ id }){
+    try {
+
+        yield call(api.delete, 'teams', {id});
+
+        const response = yield call(api.get,'teams');
+
+        yield put(TeamsActions.deleteTeamSuccess(response.data));
+
+        yield put(toastrActions.add({
+            type: 'success',
+            title: 'Sucesso!',
+            message: 'Time deletado.'
+        }) )
+    } catch (error) {
+        yield put(toastrActions.add({
+            type: 'error',
+            title: 'Erro na operação',
+            message: 'contate o suporte'
+        }) )
+    }
+
+}

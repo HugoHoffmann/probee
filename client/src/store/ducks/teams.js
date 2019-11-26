@@ -43,4 +43,6 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.OPEN_TEAM_MODAL]: openModal,
     [Types.CLOSE_TEAM_MODAL]: closeModal,
     [Types.CREATE_TEAM_SUCCESS]: createSuccess,
+    [Types.UPDATE_TEAM_SUCCESS]: createSuccess,
+    [Types.DELETE_TEAM_SUCCESS]: createSuccess,
 });
