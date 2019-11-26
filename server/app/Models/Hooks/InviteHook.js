@@ -14,7 +14,6 @@ InviteHook.sendInvitationEmail = async (invite) => {
     }else{
         const user = await invite.user().fetch()
         const team = await invite.team().fetch()
-        
         Kue.dispatch(Job.key, { user, team, email }, { attempts: 3 })
     }
 
