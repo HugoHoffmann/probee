@@ -62,7 +62,7 @@ export function* editProject({ name, id }){
         yield put(toastrActions.add({
             type: 'success',
             title: 'Sucesso!',
-            message: 'Projeto deletado.'
+            message: 'Projeto alterado.'
         }) )
     } catch (error) {
         yield put(toastrActions.add({
