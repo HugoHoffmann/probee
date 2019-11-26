@@ -19,7 +19,6 @@ class Projects extends Component {
     static propTypes = {
         getProjectsRequest: PropTypes.func.isRequired,
         openProjectModal: PropTypes.func.isRequired,
-        editTeamModal: PropTypes.func.isRequired,
         openMembersModal: PropTypes.func.isRequired,
         closeProjectModal: PropTypes.func.isRequired,        
         createProjectRequest: PropTypes.func.isRequired,        
@@ -49,6 +48,8 @@ class Projects extends Component {
     state = {
         newProject: '',
         editTeam: '',
+        editTeamModal: false,
+        editProjectModal: false,
     }
 
     componentDidMount(){
@@ -94,17 +95,52 @@ class Projects extends Component {
 
     }
 
+    handleEditProject = (id) => {
+        
+        const { editProjectRequest } = this.props;
+        const { ediProject, editProjectModal } = this.state;
+
+        editProjectRequest(id, editTeam);
+
+        this.setState({
+            ediProject: '',
+            editProjectModal: !editProjectModal
+        })
+    }
+
+    handleModalEditProject = () => {
+        const { editProjectModal } = this.state;
+
+        this.setState({
+            editProjectModal: !editProjectModal
+        })
+    }
+
     handleEditTeam = (id) => {
-        debugger;
+        
         const { editTeamRequest } = this.props;
-        const { editTeam } = this.state;
+        const { editTeam, editTeamModal } = this.state;
 
         editTeamRequest(id, editTeam);
+
+        this.setState({
+            editTeamModal: !editTeamModal,
+            editTeam: ''
+        })
+    }
+
+    handleModalEditTeam = () => {
+        const { editTeamModal } = this.state;
+
+        this.setState({
+            editTeamModal: !editTeamModal
+        })
     }
 
     render() {
-        const { activeTeam, projects, closeProjectModal, openTeamModal, closeTeamModal, teams, deleteProject, openProjectModal, openMembersModal, members } = this.props;
-        const { newProject, editTeam } = this.state;
+        const { activeTeam, projects, closeProjectModal, closeTeamModal, teams, deleteProject, openProjectModal, openMembersModal, members } = this.props;
+
+        const { newProject, editTeam, editTeamModal } = this.state;
 
         if (!activeTeam) return null;
         return (
@@ -112,7 +148,7 @@ class Projects extends Component {
                 <header>
                     <h1>{activeTeam.name}</h1>
                     <div>
-                        <MdModeEdit onClick={openTeamModal} size={22} color="#fff" />
+                        <MdModeEdit onClick={this.handleModalEditTeam} size={22} color="#fff" />
                         <MdDelete onClick={ () => this.handleDeleteTeam(activeTeam.id) } size={22} color="#fff" />
                     </div>
                     <div>
@@ -149,7 +185,7 @@ class Projects extends Component {
                         </form>
                     </Modal>
                 )}
-                {/* { teams.teamModalOpen && (
+                { editTeamModal && (
                     <Modal>
                         <h1>Editar time</h1>
                         <form>
@@ -164,7 +200,7 @@ class Projects extends Component {
                             </Button>
                         </form>
                     </Modal>
-                )} */}
+                )}
                 { members.membersModalOpen && <Members/> }
             </Container>)
     }

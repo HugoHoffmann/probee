@@ -6,13 +6,14 @@ const { Types, Creators } = createActions({
     getTeamsSuccess: ['data'],
     selectTeam: ['team'],
     openTeamModal: null,
+    openEditTeamModal: null,
     closeTeamModal: null,
     createTeamRequest: ['name'],
     createTeamSuccess: ['team'],
     deleteTeamSuccess: ['teams'],
     deleteTeamRequest: ['id'],
     editTeamRequest: ['id', 'name'],
-    editTeamSuccess: ['id', 'name'],
+    editTeamSuccess: ['teams', 'active'],
 });
 
 
@@ -47,6 +48,12 @@ export const deleteSuccess = (state, {teams}) => {
     return state.merge({ data: teams, active: null });
 }
 
+export const editSuccess = (state, {teams, active}) => {
+    debugger;
+    return state.merge({ data: teams, active: active });
+
+}
+
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_TEAMS_SUCCESS]: getSuccess,
     [Types.SELECT_TEAM]: selectTeam,
@@ -54,5 +61,5 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.CLOSE_TEAM_MODAL]: closeModal,
     [Types.CREATE_TEAM_SUCCESS]: createSuccess,
     [Types.DELETE_TEAM_SUCCESS]: deleteSuccess,
-    [Types.EDIT_TEAM_SUCCESS]: createSuccess,
+    [Types.EDIT_TEAM_SUCCESS]: editSuccess,
 });
