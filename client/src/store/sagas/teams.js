@@ -26,10 +26,10 @@ export function* createTeam({ name }){
 
 }
 
-export function* updateTeam({ name,id }){
+export function* editTeam({ name, id }){
     try {
 
-        yield call(api.update, 'teams', {name, id});
+        yield call(api.update, `teams/${id}`, {name});
 
         const response = yield call(api.get,'teams');
 
@@ -54,7 +54,7 @@ export function* updateTeam({ name,id }){
 export function* deleteTeam({ id }){
     try {
 
-        yield call(api.delete, 'teams', {id});
+        yield call(api.delete, `teams/${id}`);
 
         const response = yield call(api.get,'teams');
 

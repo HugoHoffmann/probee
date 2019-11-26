@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
+import {toastr} from 'react-redux-toastr';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { MdModeEdit, MdDelete } from 'react-icons/md';
 import ProjectsAction from '../../store/ducks/projects';
+import TeamsAction from '../../store/ducks/teams';
 import MembersAction from '../../store/ducks/members';
 
 import Members from '../Members';
 import Button from '../../styles/components/Button';
 import Modal from '../Modal';
+
 import { Container, Project } from './styles';
 
 class Projects extends Component {
@@ -45,6 +48,7 @@ class Projects extends Component {
 
     state = {
         newProject: '',
+        editTeam: '',
     }
 
     componentDidMount(){
@@ -66,9 +70,33 @@ class Projects extends Component {
         createProjectRequest(newProject);
     }
 
+    handleDeleteTeam = (id) => {
+
+        const { deleteTeamRequest, teams } = this.props;
+
+        if(teams.data.length > 1){
+
+            deleteTeamRequest(id);
+
+        }else{
+
+            toastr.error('Ops', 'Não é possível apagar o último time');
+            
+        }
+
+    }
+
+    handleEditTeam = (id) => {
+        debugger;
+        const { editTeamRequest } = this.props;
+        const { editTeam } = this.state;
+
+        editTeamRequest(id, editTeam);
+    }
+
     render() {
-        const { activeTeam, projects, teams, closeProjectModal, editProjectModal, deleteProject, openProjectModal, editTeamModal, deleteTeam, openMembersModal, members } = this.props;
-        const { newProject } = this.state;
+        const { activeTeam, projects, closeProjectModal, openTeamModal, closeTeamModal, teams, deleteProject, openProjectModal, openMembersModal, members } = this.props;
+        const { newProject, editTeam } = this.state;
 
         if (!activeTeam) return null;
         return (
@@ -76,8 +104,8 @@ class Projects extends Component {
                 <header>
                     <h1>{activeTeam.name}</h1>
                     <div>
-                        <MdModeEdit onClick={editTeamModal} size={22} color="#fff" />
-                        <MdDelete onClick={deleteTeam} size={22} color="#fff" />
+                        <MdModeEdit onClick={openTeamModal} size={22} color="#fff" />
+                        <MdDelete onClick={ () => this.handleDeleteTeam(activeTeam.id) } size={22} color="#fff" />
                     </div>
                     <div>
                         <Button onClick={openProjectModal}>
@@ -92,8 +120,8 @@ class Projects extends Component {
                     <Project key={project.id}>
                         <p>{project.title}</p>
                         <div>
-                            <MdModeEdit onClick={editProjectModal} size={22} color="#fff" />
-                            <MdDelete onClick={deleteProject} size={22} color="#fff" />
+                            {/* <MdModeEdit onClick={editProjectModal} size={22} color="#fff" />
+                            <MdDelete onClick={deleteProject} size={22} color="#fff" /> */}
                         </div>
                     </Project>
                 ))}
@@ -113,17 +141,17 @@ class Projects extends Component {
                         </form>
                     </Modal>
                 )}
-                {/* { teams.ModalOpen && (
+                {/* { teams.teamModalOpen && (
                     <Modal>
-                        <h1>Criar projeto</h1>
+                        <h1>Editar time</h1>
                         <form>
                             <span>NOME</span>
-                            <input name="newProject" onChange={this.handleInputChange} value={newProject}/>
-                            <Button onClick={ this.handleCreateProject }size="big" type="submit" >
+                            <input name="editTeam" onChange={this.handleInputChange} value={editTeam}/>
+                            <Button onClick={ () => this.handleEditTeam(activeTeam.id) }size="big" type="submit" >
                                 Salvar
                             </Button>
 
-                            <Button onClick={closeProjectModal} size="small" color="gray" type="submit" >
+                            <Button onClick={closeTeamModal} size="small" color="gray" type="submit" >
                                 Cancelar
                             </Button>
                         </form>
@@ -137,10 +165,11 @@ class Projects extends Component {
 const mapStateToProps = state => ({
     activeTeam: state.teams.active,
     members: state.members,
+    teams: state.teams,
     projects: state.projects,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({...ProjectsAction, ...MembersAction}, dispatch);
+  bindActionCreators({...ProjectsAction, ...MembersAction, ...TeamsAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
